@@ -22,6 +22,9 @@
 		398EB6BA2979A6350023874D /* RMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6B92979A6350023874D /* RMService.swift */; };
 		398EB6BC2979A6600023874D /* RMRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6BB2979A6600023874D /* RMRequest.swift */; };
 		398EB6BE2979A76F0023874D /* RMEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6BD2979A76F0023874D /* RMEndpoint.swift */; };
+		398EB6C22979AE310023874D /* RMCharacterStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6C12979AE310023874D /* RMCharacterStatus.swift */; };
+		398EB6C42979AE9D0023874D /* RMSingleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6C32979AE9D0023874D /* RMSingleLocation.swift */; };
+		398EB6C62979AECE0023874D /* RMCharacterGender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398EB6C52979AECE0023874D /* RMCharacterGender.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		398EB6B92979A6350023874D /* RMService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMService.swift; sourceTree = "<group>"; };
 		398EB6BB2979A6600023874D /* RMRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMRequest.swift; sourceTree = "<group>"; };
 		398EB6BD2979A76F0023874D /* RMEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMEndpoint.swift; sourceTree = "<group>"; };
+		398EB6C12979AE310023874D /* RMCharacterStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterStatus.swift; sourceTree = "<group>"; };
+		398EB6C32979AE9D0023874D /* RMSingleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSingleLocation.swift; sourceTree = "<group>"; };
+		398EB6C52979AECE0023874D /* RMCharacterGender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMCharacterGender.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +103,9 @@
 		390C6C132974706000754A4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				390C6C19297471AE00754A4C /* RMLocation.swift */,
-				390C6C1B297471CE00754A4C /* RMCharacter.swift */,
-				390C6C1D297471E200754A4C /* RMEpisode.swift */,
+				398EB6C92979B18C0023874D /* RMEpisode */,
+				398EB6C82979B17D0023874D /* RMLocation */,
+				398EB6BF2979AE020023874D /* RMCharacter */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -156,6 +162,33 @@
 				390C6C27297472F900754A4C /* RMSettingsViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		398EB6BF2979AE020023874D /* RMCharacter */ = {
+			isa = PBXGroup;
+			children = (
+				390C6C1B297471CE00754A4C /* RMCharacter.swift */,
+				398EB6C12979AE310023874D /* RMCharacterStatus.swift */,
+				398EB6C32979AE9D0023874D /* RMSingleLocation.swift */,
+				398EB6C52979AECE0023874D /* RMCharacterGender.swift */,
+			);
+			path = RMCharacter;
+			sourceTree = "<group>";
+		};
+		398EB6C82979B17D0023874D /* RMLocation */ = {
+			isa = PBXGroup;
+			children = (
+				390C6C19297471AE00754A4C /* RMLocation.swift */,
+			);
+			path = RMLocation;
+			sourceTree = "<group>";
+		};
+		398EB6C92979B18C0023874D /* RMEpisode */ = {
+			isa = PBXGroup;
+			children = (
+				390C6C1D297471E200754A4C /* RMEpisode.swift */,
+			);
+			path = RMEpisode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,7 +261,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				398EB6C22979AE310023874D /* RMCharacterStatus.swift in Sources */,
+				398EB6C42979AE9D0023874D /* RMSingleLocation.swift in Sources */,
 				390C6C24297472D700754A4C /* RMLocationViewController.swift in Sources */,
+				398EB6C62979AECE0023874D /* RMCharacterGender.swift in Sources */,
 				390C6C1E297471E200754A4C /* RMEpisode.swift in Sources */,
 				390C6C0329746E3100754A4C /* RMTabBarController.swift in Sources */,
 				390C6C26297472E500754A4C /* RMEpisodeViewController.swift in Sources */,
