@@ -8,14 +8,14 @@
 import UIKit
 
 final class RMCharacterViewController: UIViewController {
-    let characterListView = CharacterListView()
+    let characterListView = RMCharacterListView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Characters"
         view.addSubview(characterListView)
-        setUpView
+        setUpView()
     }
     
     private func setUpView () {
