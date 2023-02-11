@@ -25,8 +25,8 @@ final class RMCharacterCollectionViewCellViewModel {
         return characterStatus.rawValue
     }
     
+    //MARK: получение изображения
     public func fetchImage(completion: @escaping (Result<Data, Error>) -> Void) {
-        //MARK: получение изображения
         guard let url = characterImage else {
             completion(.failure(URLError(.badURL)))
             return }

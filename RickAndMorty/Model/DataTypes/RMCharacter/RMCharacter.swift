@@ -10,7 +10,7 @@ import Foundation
 struct RMCharacter: Codable {
         let id: Int
         let name, species, type: String
-        let status : String
+        let status : RMCharacterStatus
         let gender: String
         let origin, location: RMSingleLocation
         let image: String
