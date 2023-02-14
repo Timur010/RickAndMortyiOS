@@ -15,11 +15,10 @@ protocol RMCharacterListViewViewModelDelegate: AnyObject {
 }
 
 final class RMCharacterListViewViewModel: NSObject {
-    
     public weak var delegate : RMCharacterListViewViewModelDelegate?
-    
     private var isLoadingMoreCharacter = false
-    
+    private var cellViewModel: [RMCharacterCollectionViewCellViewModel] = []
+    private var apiInfo: RMGetAllCharacterResponse.Info? = nil
     private var character: [RMCharacter] = [] {
         didSet {
             for character in character {
@@ -34,11 +33,7 @@ final class RMCharacterListViewViewModel: NSObject {
             }
         }
     }
-    
-    private var cellViewModel: [RMCharacterCollectionViewCellViewModel] = []
-    
-    private var apiInfo: RMGetAllCharacterResponse.Info? = nil
-    
+
     public func fetchCharacters() {
         RMService.shared.execute(.listCharactersRequest, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
             switch result {
