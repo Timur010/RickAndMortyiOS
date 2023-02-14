@@ -12,16 +12,6 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
     private let characterStatus: RMCharacterStatus
     private let characterImage: URL?
     
-    static func == (lhs: RMCharacterCollectionViewCellViewModel, rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
-        return lhs.hashValue == rhs.hashValue
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(characterName)
-        hasher.combine(characterStatus)
-        hasher.combine(characterImage)
-    }
-    
     //MARK: - Init
     
     init(characterName: String, characterStatus: RMCharacterStatus, characterImage: URL?) {
@@ -39,14 +29,16 @@ final class RMCharacterCollectionViewCellViewModel: Hashable, Equatable {
         guard let url = characterImage else {
             completion(.failure(URLError(.badURL)))
             return }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, _, error in
-            guard let data = data, error == nil else {
-                completion(.failure(error ?? URLError(.badServerResponse)))
-                return
-            }
-            completion(.success(data))
-        }
-        task.resume()
+        ImageLoader.shared.downloadImage(url, completion: completion)
+    }
+    
+    static func == (lhs: RMCharacterCollectionViewCellViewModel, rhs: RMCharacterCollectionViewCellViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(characterName)
+        hasher.combine(characterStatus)
+        hasher.combine(characterImage)
     }
 }
