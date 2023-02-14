@@ -84,5 +84,10 @@ extension RMCharacterListView: RMCharacterListViewViewModelDelegate {
         }
     }
     
+    func didLoadMoreCharacters(with newIndexPath: [IndexPath]) {
+        collectionView.performBatchUpdates {
+            self.collectionView.insertItems(at: newIndexPath)
+        }
+    }
      
 }

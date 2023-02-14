@@ -10,10 +10,12 @@ import UIKit
 
 protocol RMCharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
+    func didLoadMoreCharacters (with newIndexPath: [IndexPath])
     func didSelectCharacter(_ character: RMCharacter)
 }
 
 final class RMCharacterListViewViewModel: NSObject {
+    
     public weak var delegate : RMCharacterListViewViewModelDelegate?
     
     private var isLoadingMoreCharacter = false
@@ -26,7 +28,9 @@ final class RMCharacterListViewViewModel: NSObject {
                     characterStatus: character.status,
                     characterImage: URL(string: character.image)
                 )
-                cellViewModel.append(viewModel)
+                if !cellViewModel.contains(viewModel) {
+                    cellViewModel.append(viewModel)
+                }
             }
         }
     }
@@ -50,8 +54,41 @@ final class RMCharacterListViewViewModel: NSObject {
         }
     }
     
-    public func fetchAdditionalCharacter() {
-        
+    public func fetchAdditionalCharacter(url: URL) {
+        guard !isLoadingMoreCharacter else {
+            return
+        }
+        isLoadingMoreCharacter = true
+        guard let request = RMRequest(url: url) else {
+            isLoadingMoreCharacter = false
+            return
+        }
+        RMService.shared.execute(request, expecting: RMGetAllCharacterResponse.self) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
+            case .success(let responseModel):
+                strongSelf.apiInfo =  responseModel.info
+                
+                let originalCount = strongSelf.character.count
+                let newCount = responseModel.results.count
+                let total = originalCount + newCount
+                let startingIndex = total - newCount
+                let indexPathToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
+                    return IndexPath(row: $0, section: 0)
+                })
+                print(indexPathToAdd)
+                strongSelf.character.append(contentsOf: responseModel.results)
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreCharacters(with: [] )
+                    strongSelf.isLoadingMoreCharacter = false
+                }
+            case .failure(let failure):
+                print(String(String(describing: failure)))
+                self?.isLoadingMoreCharacter = false
+            }
+        }
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
@@ -107,16 +144,23 @@ extension RMCharacterListViewViewModel: UICollectionViewDataSource, UICollection
 
 extension RMCharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharacter else {
+        guard shouldShowLoadMoreIndicator,
+              !isLoadingMoreCharacter,
+              !cellViewModel.isEmpty,
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString)
+        else {
             return
         }
-        let offset = scrollView.contentOffset.y
-        let totalContentHeight = scrollView.contentSize.height
-        let totalScrollViewFixedHeight = scrollView.frame.size.height
-        
-        if offset >= (totalContentHeight - totalScrollViewFixedHeight) {
-            print ("мы внизу")
-            isLoadingMoreCharacter = true
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollViewFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContentHeight - totalScrollViewFixedHeight - 100) {
+                self?.fetchAdditionalCharacter(url: url)
+            }
+            t.invalidate()
         }
     }
 }
