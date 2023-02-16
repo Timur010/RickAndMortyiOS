@@ -61,7 +61,7 @@ class RMCharacterDetailView: UIView {
     }
     
     private func createSection(for sectionIndex: Int) -> NSCollectionLayoutSection {
-        let sectionTypes = viewModel.selection
+        let sectionTypes = viewModel.section
         switch sectionTypes[sectionIndex] {
         case.photo:
             return viewModel.createPhotoSection()

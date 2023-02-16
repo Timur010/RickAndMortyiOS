@@ -51,19 +51,18 @@ final class RMCharacterDetailViewController: UIViewController {
 
 extension RMCharacterDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.selection.count
+        return viewModel.section.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
+        let sectionType = viewModel.section[section]
+        switch sectionType {
+        case.photo:
             return 1
-        case 1:
-            return 8
-        case 2 :
-            return 20
-        default:
-            return 1
+        case.information(let viewModels):
+            return viewModels.count
+        case.episodes(let viewModels):
+            return viewModels.count
         }
     }
     
