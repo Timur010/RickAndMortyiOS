@@ -64,38 +64,11 @@ class RMCharacterDetailView: UIView {
         let sectionTypes = viewModel.selection
         switch sectionTypes[sectionIndex] {
         case.photo:
-            return createPhotoSection()
+            return viewModel.createPhotoSection()
         case.information:
-            return createInformationSection()
+            return viewModel.createInformationSection()
         case.episodes:
-            return createEpisodesSection()
+            return viewModel.createEpisodesSection()
         }
-    }
-    
-    private func createPhotoSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150)) , subitems: [item])
-        let selection = NSCollectionLayoutSection(group: group)
-        
-        return selection
-    }
-    
-    private func createInformationSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150)) , subitems: [item])
-        let selection = NSCollectionLayoutSection(group: group)
-        
-        return selection
-    }
-    
-    private func createEpisodesSection() -> NSCollectionLayoutSection {
-        let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0)))
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0)
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150)) , subitems: [item])
-        let selection = NSCollectionLayoutSection(group: group)
-        
-        return selection
     }
 }
