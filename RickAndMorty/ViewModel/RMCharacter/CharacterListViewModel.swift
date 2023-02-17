@@ -70,10 +70,9 @@ final class RMCharacterListViewViewModel: NSObject {
                 let newCount = responseModel.results.count
                 let total = originalCount + newCount
                 let startingIndex = total - newCount
-                let indexPathToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
+                let _: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
                     return IndexPath(row: $0, section: 0)
                 })
-                print(indexPathToAdd)
                 strongSelf.character.append(contentsOf: responseModel.results)
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(with: [] )
